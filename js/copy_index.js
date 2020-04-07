@@ -1,7 +1,3 @@
-const booksUrl = "http://localhost:3000/books"
-const usersUrl = "http://localhost:3000/users"
-
-
 const booksContainer = document.querySelector('ul')
 const currentUser = { id: 1, username: "pouros" };
 
@@ -16,8 +12,7 @@ function renderBooks(booksArray) {
         booksContainer.append(bookLi)
         bookLi.style.cursor = "pointer";
         bookLi.addEventListener('click', () => renderInfo(book))
-
-    })
+    });
 }
 
 function renderInfo(book) {
@@ -36,13 +31,8 @@ function renderInfo(book) {
     })
 
     const likeButton = document.createElement("button");
-    book.users.forEach(user => {
-        if(user.id === currentUser.id) {
-            likeButton.innerText = "Un-Read Book"
-        } else {
-            likeButton.innerText = "Read Book"
-        }
-    })
+    likeButton.innerText = "Like Book";
+
     likeButton.addEventListener('click', () => {
         book.users.push(currentUser)
         const li = document.createElement("li");
@@ -59,7 +49,6 @@ function renderInfo(book) {
         body: JSON.stringify(book)
     });
     
-
-    showPanel.innerHTML = "";
+    [...showPanel.children].forEach( child => child.remove())
     showPanel.append(bookImg, bookDescription, ul, likeButton )
 }
